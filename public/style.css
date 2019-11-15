@@ -9,6 +9,12 @@ html, body {
 /*    text-align: center;*/
 /*}*/
 
-body {
+.container {
     margin-top: 50px;
+}
+.card {
+    margin: 20px !important;
+}
+.navbar {
+    background-color: #e3f2fd;
 }

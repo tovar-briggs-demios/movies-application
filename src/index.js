@@ -13,19 +13,18 @@ getMovies().then((movies) => {
   console.log('Here are all the movies:');
   movies.forEach(({title, rating, id}) => {
     console.log(`id#${id} - ${title} - rating: ${rating}`);
-    let html = `<div class="card-deck">`;
+    let html = `<div class="">`;
     for (let i = 0; i < movies.length; i++) {
-      html += ` <div class="card">
-    <img src=" class="card-img-top" alt="...">
-          <div class="card-body">
+      html += `<div class="card" style="width: 15rem">
+          <img src="" class="card-img-top" alt="...">
+          <div class="card-body text-center">
           <h5 class="card-title">${movies[i].title}</h5>
-          <p class="card-text">${movies[i].rating}</p>
-          <p>
-          <button class="btn btn-light" type="button"><img src="icons/add.png" alt=""></button>
-          <button class="btn btn-light" type="button"><img src="icons/trash-can.png" alt=""></button>
-           </p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <p class="card-text">Rating: ${movies[i].rating}</p>
           </div>
+          <div class="card-footer d-flex justify-content-around">
+          <button class="btn btn-light" type="button"><img src="icons/edit.png" alt=""></button>
+          <button class="btn btn-light" type="button"><img src="icons/trash-can.png" alt=""></button>
+           </div>
           </div>
           </div>`;
       $('.movies').html(html);
