@@ -12,6 +12,7 @@ const {getMovies, getMovie, postMovie, patchMovie} = require('./api.js');
 //Initial GetMovies Call
 GetMovies();
 
+
 function GetMovies(){
   getMovies().then((movies) => {
     console.log('Here are all the movies:');
@@ -23,7 +24,7 @@ function GetMovies(){
           <img src="" class="card-img-top" alt="...">
           <div class="card-body text-center">
           <h5 class="card-title">${movies[i].title}</h5>
-          <p class="card-text">Rating: ${movies[i].rating}</p>
+          <p class="card-text">Rating: ${movies[i].rating}<img src="icons/star.png" alt =""></p>
           </div>
           <div class="card-footer d-flex justify-content-around">
           
@@ -54,13 +55,14 @@ $('#movieUpdateModal').on('show.bs.modal', function (event) {
 
   modal.find('.modal-title').text(`Updating movie ${movieId}`);
 
+
   let selectedMovie = getMovie(movieId).then((movie) =>{
     console.log(movie.title);
-    modal.find('#movieTitle').val(movie.title)
+    modal.find('#movieTitle').val(movie.title);
+    modal.find('#movieRating').val(movie.rating);
+
+
   });
-
-
-
 
 
   //add the movieid to the save button inside the modal
@@ -97,7 +99,7 @@ function updateMovie(id, title, rating) {
   let patchJson = {
     title,
     rating
-  }
+  };
   patchMovie(patchJson,id);
 
   console.log(getMovies())
