@@ -1,8 +1,8 @@
 {
   "movies": [
     {
-      "title": "Casablanca",
-      "rating": "4",
+      "title": "Flubber",
+      "rating": "3",
       "id": 1
     },
     {
@@ -20,7 +20,7 @@
       "rating": "5",
       "id": 4
     },
-     {
+    {
       "title": "Five hundred days of summer",
       "rating": "4",
       "id": 5
