@@ -1,16 +1,6 @@
 {
   "movies": [
     {
-      "title": "Flubber",
-      "rating": "3",
-      "id": 1
-    },
-    {
-      "title": "Star Wars: A New Hope",
-      "rating": "3",
-      "id": 2
-    },
-    {
       "title": "Wolf of Wall Street",
       "rating": "5",
       "id": 3
