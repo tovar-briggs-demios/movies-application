@@ -1,13 +1,8 @@
 {
   "movies": [
     {
-      "title": "Wolf of Wall Street",
+      "title": "Mulan",
       "rating": "5",
-      "id": 8
-    },
-    {
-      "title": "Spider-Man",
-      "rating": "2",
       "id": 9
     },
     {
