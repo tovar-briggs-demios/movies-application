@@ -58,7 +58,8 @@ $('#movieUpdateModal').on('show.bs.modal', function (event) {
   let selectedMovie = getMovie(movieId).then((movie) =>{
     console.log(movie.title);
     modal.find('#movieTitle').val(movie.title);
-    modal.find('#movieRating').val(movie.rating);
+    $('#update-rating' + movie.rating).trigger('click');
+    console.log(movie.rating);
 
 
   });
@@ -66,17 +67,37 @@ $('#movieUpdateModal').on('show.bs.modal', function (event) {
 });
 
 
+$('#add-movie').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget); // Button that triggered the modal
+  var recipient = button.data('whatever'); // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this);
+  modal.find('.modal-title').text('New message to ' + recipient);
+  modal.find('.modal-body input').val(recipient)
+});
+
+
+
 //jQuery for the save button inside the modal to update json
 $('#saveButton').click(function () {
 
   //Get the ID
-  let id = $('#editButton').attr('data-movieid');
+  let id = parseInt($('#editButton').attr('data-movieid'));
 
   //Get the title
   let title = $('#movieTitle').val();
 
+  let rating;
+  var ele = document.getElementsByName('ratings');
+  for(let i = 0; i < ele.length; i++) {
+    if(ele[i].checked)
+      console.log(ele[i].value)
+     rating = ele[i].value;
+  }
+
   //Get the rating
-  let rating = $('#movieRating').val();
+  console.log(id);
 
   updateMovie(id,title,rating);
 
