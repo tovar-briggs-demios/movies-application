@@ -7,21 +7,36 @@ sayHello('World');
 /**
  * require style imports
  */
-const {getMovies, getMovie, postMovie, patchMovie, deleteMovie} = require('./api.js');
+const {getMovies, getMovie, postMovie, patchMovie, deleteMovie, getPoster} = require('./api.js');
+
+
+//for the loader
+let body = document.getElementsByTagName('body')[0];
+let removeLoading = function() {
+  setTimeout(function() {
+    body.className = body.className.replace(/loading/, '');
+  }, 1000);
+};
+removeLoading();
+
 
 //Initial GetMovies Call
 GetMovies();
 
 
 function GetMovies(){
+  //for the loader
+
   getMovies().then((movies) => {
     console.log('Here are all the movies:');
     movies.forEach(({title, rating, id}) => {
       console.log(`id# ${id} - ${title} - rating: ${rating}`);
       let html = `<div class="">`;
       for (let i = 0; i < movies.length; i++) {
+        // let poster = $.get(`https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=${movie.title}&callback=?`);
         html += `<div class="card"  style="width: 15rem">
           <img src="" class="card-img-top" alt="...">
+          
           <div class="card-body text-center">
           <h5 class="card-title">${movies[i].title}</h5>
           <p class="card-text">Rating: ${movies[i].rating}<img src="icons/star.png" alt =""></p>
@@ -190,6 +205,15 @@ $('#movieDeleteModal').on('show.bs.modal', function (event) {
 
 });
 
+//for the loader
+let $body = $('body');
+$(document).on({
+  ajaxStart: function () { $body.addClass('loading'); },
+  ajaxStop: function () { $body.removeClass('loading'); }
+
+    }
+
+);
 
 
 

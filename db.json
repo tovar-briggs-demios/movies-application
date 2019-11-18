@@ -1,17 +1,17 @@
 {
   "movies": [
     {
-      "title": "New Moon 2",
+      "title": "Harry Potter",
       "rating": "2",
       "id": 1
     },
     {
-      "title": "Newest Moon",
-      "rating": "4",
+      "title": "Transformers",
+      "rating": "3",
       "id": 2
     },
     {
-      "title": "New Moon 5",
+      "title": "Jaws",
       "rating": "4",
       "id": 3
     },
@@ -21,8 +21,8 @@
       "id": 4
     },
     {
-      "title": "Hello",
-      "rating": "2",
+      "title": "Indiana Jones",
+      "rating": "5",
       "id": 5
     },
     {
@@ -34,6 +34,11 @@
       "title": "Tron",
       "rating": "2",
       "id": 7
+    },
+    {
+      "title": "The Lion King",
+      "rating": "4",
+      "id": 8
     }
   ]
 }
