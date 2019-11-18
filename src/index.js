@@ -45,6 +45,8 @@ function GetMovies(){
 }
 
 
+let id;
+
 //jQuery to intercept Edit Button
 $('#movieUpdateModal').on('show.bs.modal', function (event) {
   let button = $(event.relatedTarget); // Button that triggered the modal
@@ -56,14 +58,50 @@ $('#movieUpdateModal').on('show.bs.modal', function (event) {
   //on top of the modal
   modal.find('.modal-title').text(`Updating movie ${movieId}`);
 
-  modal.find('.hidden').text(`${movieId}`);
+  modal.find('#hidden').attr('value', `${movieId}`);
 
+  id = document.getElementById('hidden').value;
+  console.log(id + "for updating");
 
   let selectedMovie = getMovie(movieId).then((movie) =>{
     console.log(movie.title);
     modal.find('#movieTitle').val(movie.title);
     $('#update-rating' + movie.rating).trigger('click');
-    console.log(movie.rating);
+    console.log(movie.rating + "this is the rating");
+
+
+  });
+
+  $('#saveButton').click(function () {
+
+    // id =  parseInt($('#editButton').attr('data-movieid'));
+    // console.log(id);
+
+    //Get the title
+    let title = $('#movieTitle').val();
+
+    let rating;
+    let ele = document.getElementsByName('ratings');
+    for(let i = 0; i < ele.length; i++) {
+      if(ele[i].checked) {
+        console.log(ele[i].value + "this is the rating");
+        rating = ele[i].value;
+      }
+    }
+
+
+    //Get the rating
+
+    // let newId= document.getElementsByName('ratings').val();
+
+    updateMovie(id,title,rating);
+
+
+    //after updating close modal
+    $('#movieUpdateModal').modal('toggle');
+
+    //Call Get Movies to regenerate the cards
+    GetMovies();
 
 
   });
@@ -82,39 +120,10 @@ $('#add-movie').on('show.bs.modal', function (event) {
 
 //Get the ID
 // let id;
-let id = parseInt(document.getElementsByClassName('hidden').value);
 
 
 //jQuery for the save button inside the modal to update json
-$('#saveButton').click(function () {
-  id =  parseInt($('#editButton').attr('data-movieid'));
-  console.log(id);
-  //Get the title
-  let title = $('#movieTitle').val();
 
-  let rating;
-  let ele = document.getElementsByName('ratings');
-  for(let i = 0; i < ele.length; i++) {
-    if(ele[i].checked)
-      console.log(ele[i].value)
-     rating = ele[i].value;
-  }
-
-  //Get the rating
-
-  // let newId= document.getElementsByName('ratings').val();
-
-  updateMovie(id,title,rating);
-
-
-  //after updating close modal
-  $('#movieUpdateModal').modal('toggle');
-
-  //Call Get Movies to regenerate the cards
-  GetMovies();
-
-
-});
 
 
 function updateMovie(id, title, rating) {
@@ -124,22 +133,63 @@ function updateMovie(id, title, rating) {
   };
   patchMovie(patchJson,id);
 
-  console.log(getMovies())
+  console.log(getMovies());
 }
 
-//jquery for the delete button inside the modal to update json
-$('#deleteButton').click(function () {
-  let id = $('#delete').attr('data-movieid');
-  deleteMovie(id);
-  console.log(id);
+$('#add').click(function () {
+  let id = $('#add-movie-button').attr('data-movieid');
+  let title = $('#movie-title').val();
+  let rating;
+  let ele = document.getElementsByName('add-ratings');
+  for(let i = 0; i < ele.length; i++) {
+    if(ele[i].checked) {
+      rating = ele[i].value;
+    }
+  }
 
-  //after updating close modal
-  $('#movieDeleteModal').modal('toggle');
+  let postJson = {
+    title,
+    rating
+  };
+  postMovie(postJson, id);
+  console.log(id + "for adding");
+
+  // //after updating close modal
+  // $('#movieDeleteModal').modal('toggle');
 
   //Call Get Movies to regenerate the cards
   GetMovies();
 
 
 });
+
+//jquery for the delete button inside the modal to update json
+$('#movieDeleteModal').on('show.bs.modal', function (event) {
+  let button = $(event.relatedTarget); // Button that triggered the modal
+
+  let movieId = button.data('movieid');// Extract info from data-* attributes
+
+  let modal = $(this);
+
+  modal.find('#delete-id').attr('value', `${movieId}`);
+
+  let id = document.getElementById('delete-id').value;
+  $('#deleteButton').click(function () {
+    deleteMovie(id);
+    console.log(id + "for deleting");
+    $('#movieDeleteModal').modal('toggle');
+    GetMovies();
+
+  });
+
+
+  //after updating close modal
+
+  //Call Get Movies to regenerate the cards
+
+
+});
+
+
 
 

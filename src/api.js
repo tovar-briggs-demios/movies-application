@@ -7,16 +7,18 @@
         return fetch(`/api/movies/${id}`)
             .then(resp => resp.json());
       },
-      postMovie : (book) => {
-        return fetch('api/movies', {
+      postMovie : (movie, id) => {
+          console.log(movie);
+        return fetch(`api/movies`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(book),
+          body: JSON.stringify(movie, id),
         })
       },
       patchMovie : (movie, id) => {
+          console.log(movie);
         return fetch(`api/movies/${id}`, {
           method: 'PATCH',
           headers: {
@@ -34,3 +36,4 @@
          })
       }
     };
+
