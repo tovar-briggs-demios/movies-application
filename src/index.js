@@ -7,7 +7,7 @@ sayHello('World');
 /**
  * require style imports
  */
-const {getMovies, getMovie, postMovie, patchMovie} = require('./api.js');
+const {getMovies, getMovie, postMovie, patchMovie, deleteMovie} = require('./api.js');
 
 //Initial GetMovies Call
 GetMovies();
@@ -29,9 +29,9 @@ function GetMovies(){
           <div class="card-footer d-flex justify-content-around">
           
             <!--button for edit (get individual ids for each movie)-->
-          <button type="button" class="btn btn-light"  data-movieid="${movies[i].id}" data-toggle="modal" data-target="#movieUpdateModal"><img src="icons/edit.png" alt=""></button>
+          <button type="button" class="btn btn-light"  id="editButton" data-movieid="${movies[i].id}" data-toggle="modal" data-target="#movieUpdateModal"><img src="icons/edit.png" alt=""></button>
            
-          <button class="btn btn-light" type="button"><img src="icons/trash-can.png" alt=""></button>
+          <button class="btn btn-light" id='delete' type="button" data-movieid="${movies[i].id}" data-toggle="modal" data-target="#movieDeleteModal"><img src="icons/trash-can.png" alt=""></button>
            </div>
           </div>
           </div>`;
@@ -43,7 +43,6 @@ function GetMovies(){
     console.log(error);
   });
 }
-
 
 
 //jQuery to intercept Edit Button
@@ -64,18 +63,14 @@ $('#movieUpdateModal').on('show.bs.modal', function (event) {
 
   });
 
-
-  //add the movieid to the save button inside the modal
-  modal.find('#saveButton').attr('data-movieid', movieId);
-
 });
 
 
-//jQuery for the save button inside to modal to update json
+//jQuery for the save button inside the modal to update json
 $('#saveButton').click(function () {
 
   //Get the ID
-  let id = $('#saveButton').attr('data-movieid');
+  let id = $('#editButton').attr('data-movieid');
 
   //Get the title
   let title = $('#movieTitle').val();
@@ -94,6 +89,20 @@ $('#saveButton').click(function () {
 
 });
 
+//jquery for the delete button inside the modal to update json
+$('#deleteButton').click(function () {
+  let id = $('#delete').attr('data-movieid');
+  deleteMovie(id);
+  console.log(id);
+
+  //after updating close modal
+  $('#movieDeleteModal').modal('toggle');
+
+  //Call Get Movies to regenerate the cards
+  GetMovies();
+
+
+});
 
 function updateMovie(id, title, rating) {
   let patchJson = {
@@ -104,3 +113,7 @@ function updateMovie(id, title, rating) {
 
   console.log(getMovies())
 }
+
+
+
+
