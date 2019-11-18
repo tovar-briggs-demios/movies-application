@@ -48,11 +48,15 @@ function GetMovies(){
 //jQuery to intercept Edit Button
 $('#movieUpdateModal').on('show.bs.modal', function (event) {
   let button = $(event.relatedTarget); // Button that triggered the modal
+
   let movieId = button.data('movieid');// Extract info from data-* attributes
 
   let modal = $(this);
 
+  //on top of the modal
   modal.find('.modal-title').text(`Updating movie ${movieId}`);
+
+  modal.find('.hidden').text(`${movieId}`);
 
 
   let selectedMovie = getMovie(movieId).then((movie) =>{
@@ -70,26 +74,26 @@ $('#movieUpdateModal').on('show.bs.modal', function (event) {
 $('#add-movie').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget); // Button that triggered the modal
   var recipient = button.data('whatever'); // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+
   var modal = $(this);
-  modal.find('.modal-title').text('New message to ' + recipient);
+  // modal.find('.modal-title').text('New message to ' + recipient);
   modal.find('.modal-body input').val(recipient)
 });
 
+//Get the ID
+// let id;
+let id = parseInt(document.getElementsByClassName('hidden').value);
 
 
 //jQuery for the save button inside the modal to update json
 $('#saveButton').click(function () {
-
-  //Get the ID
-  let id = parseInt($('#editButton').attr('data-movieid'));
-
+  id =  parseInt($('#editButton').attr('data-movieid'));
+  console.log(id);
   //Get the title
   let title = $('#movieTitle').val();
 
   let rating;
-  var ele = document.getElementsByName('ratings');
+  let ele = document.getElementsByName('ratings');
   for(let i = 0; i < ele.length; i++) {
     if(ele[i].checked)
       console.log(ele[i].value)
@@ -97,9 +101,11 @@ $('#saveButton').click(function () {
   }
 
   //Get the rating
-  console.log(id);
+
+  // let newId= document.getElementsByName('ratings').val();
 
   updateMovie(id,title,rating);
+
 
   //after updating close modal
   $('#movieUpdateModal').modal('toggle');
@@ -109,6 +115,17 @@ $('#saveButton').click(function () {
 
 
 });
+
+
+function updateMovie(id, title, rating) {
+  let patchJson = {
+    title,
+    rating
+  };
+  patchMovie(patchJson,id);
+
+  console.log(getMovies())
+}
 
 //jquery for the delete button inside the modal to update json
 $('#deleteButton').click(function () {
@@ -124,17 +141,5 @@ $('#deleteButton').click(function () {
 
 
 });
-
-function updateMovie(id, title, rating) {
-  let patchJson = {
-    title,
-    rating
-  };
-  patchMovie(patchJson,id);
-
-  console.log(getMovies())
-}
-
-
 
 
