@@ -9,5 +9,24 @@ html, body {
     margin: 20px !important;
 }
 .navbar {
-    background-color: #e3f2fd;
+    background-color: #aa66cc;
+}
+
+body {
+    transition: background-color 1s;
+}
+html, body {
+    min-height: 100%;
+}
+body.loading {
+    background: #BBA2FF url('/icons/loader.gif') no-repeat 50% 50%;
+    opacity: 0;
+}
+
+.addmovie {
+   background-color:  #9933CC;
+}
+
+body {
+    background-color: #F4E8FF;
 }
