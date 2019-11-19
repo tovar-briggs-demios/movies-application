@@ -235,3 +235,31 @@ function getPoster(title, id){
 $(document).ready(function(){
   $('[data-toggle="popover"]').popover();
 });
+
+//===========popcorn raining=============//
+let allowedKeys = {
+  37: 'ArrowLeft',
+  38: 'ArrowUp',
+  39: 'ArrowRight',
+  40: 'ArrowDown',
+  65: 'a',
+  66: 'b',
+  13: 'Enter'
+};
+let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a', 'Enter'];
+let i = 0;
+$('*').keydown(function (e) {
+  let key = allowedKeys[e.keyCode];
+  let requiredKey = konamiCode[i];
+  if (key == requiredKey){
+    i++;
+    if (i == konamiCode.length){
+      console.log("successful");
+      rainingPopcorn();
+      i = 0;
+    }
+  }
+});
+function rainingPopcorn() {
+  $('.card-body').toggleClass('popcorn')
+}
