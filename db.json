@@ -6,7 +6,7 @@
       "id": 1
     },
     {
-      "title": "Transformers",
+      "title": "Wolf on Wall Street",
       "rating": "3",
       "id": 2
     },
@@ -31,7 +31,7 @@
       "id": 7
     },
     {
-      "title": "The Lion King",
+      "title": "Drive",
       "rating": "4",
       "id": 8
     },
@@ -54,11 +54,6 @@
       "title": "Zombieland",
       "rating": "2",
       "id": 12
-    },
-    {
-      "title": "Pokemon",
-      "rating": "5",
-      "id": 13
     },
     {
       "title": "The Mask",
