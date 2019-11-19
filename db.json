@@ -59,6 +59,11 @@
       "title": "The Mask",
       "rating": "4",
       "id": 14
+    },
+    {
+      "title": "Rugrats in Paris",
+      "rating": "5",
+      "id": 15
     }
   ]
 }

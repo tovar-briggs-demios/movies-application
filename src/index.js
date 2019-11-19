@@ -41,8 +41,8 @@ function GetMovies(){
       for (let i = 0; i < movies.length; i++) {
         // let poster = $.get(`https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=${movie.title}&callback=?`);
         html += `<div class="card"  style="width: 15rem">
+            <!--This calls the poster images to put in the card-->
           <div id="card${[i]}"></div>
-<!--          <img src="" class="card-img-top" alt="...">-->
           
           <div class="card-body text-center">
           <h5 class="card-title">${movies[i].title}</h5>
@@ -53,11 +53,14 @@ function GetMovies(){
             <!--button for edit (get individual ids for each movie)-->
           <button type="button" class="btn btn-light"  id="editButton" data-movieid="${movies[i].id}" data-toggle="modal" data-target="#movieUpdateModal"><img src="icons/edit.png" alt=""></button>
            
+            <!--button for delete-->
           <button class="btn btn-light" id='delete' type="button" data-movieid="${movies[i].id}" data-toggle="modal" data-target="#movieDeleteModal"><img src="icons/trash-can.png" alt=""></button>
            </div>
           </div>
           </div>`;
         $('.movies').html(html);
+
+        //this calls the function for the poster (how each card gets its own specific poster)
         getPoster(movies[i].title, [i]);
       }
     });
@@ -67,8 +70,12 @@ function GetMovies(){
   });
 }
 
+
 //For Modals
 let id;
+
+//================EDIT BUTTON====================//
+
 //jQuery to intercept Edit Button
 $('#movieUpdateModal').on('show.bs.modal', function (event) {
   let button = $(event.relatedTarget); // Button that triggered the modal
@@ -121,23 +128,6 @@ $('#movieUpdateModal').on('show.bs.modal', function (event) {
 });
 
 
-// //Add a New Movie
-// $('#add-movie').on('show.bs.modal', function (event) {
-//   var button = $(event.relatedTarget); // Button that triggered the modal
-//   var recipient = button.data('whatever'); // Extract info from data-* attributes
-//
-//   var modal = $(this);
-//   // modal.find('.modal-title').text('New message to ' + recipient);
-//   modal.find('.modal-body input').val(recipient)
-// });
-
-//Get the ID
-// let id;
-//jQuery for the save button inside the modal to update json
-
-
-
-
 //Function to call PatchMovie, maybe we can just use patchMovie
 function updateMovie(id, title, rating) {
   let patchJson = {
@@ -149,7 +139,8 @@ function updateMovie(id, title, rating) {
   console.log(getMovies());
 }
 
-//Adding a new movie
+//=================NEW MOVIE==================//
+
 $('#add').click(function () {
   let id = $('#add-movie-button').attr('data-movieid');
   let title = $('#movie-title').val();
@@ -179,6 +170,9 @@ $('#add').click(function () {
 
 });
 
+
+//=================DELETE BUTTON=================//
+
 //jquery for the delete button inside the modal to update json
 $('#movieDeleteModal').on('show.bs.modal', function (event) {
   let button = $(event.relatedTarget); // Button that triggered the modal
@@ -205,7 +199,8 @@ $('#movieDeleteModal').on('show.bs.modal', function (event) {
 });
 
 
-//Get Movie Poster Function...For some reason this looks like its getting called multiple times not sure why...Could be with GetMovies() loop
+//=====================MOVIE POSTER==================//
+
 //title: the title of the movie
 //id: the id of the card that the poster needs to be placed in
 function getPoster(title, id){
