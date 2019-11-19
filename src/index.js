@@ -220,6 +220,8 @@ function getPoster(title, id){
 
     //jQuery to update the card with the img html AFTER the response
     $(`#card${id}`).html(`<img src="${poster}" class="card-img-top" alt="...">`);
+
+    //for find a movie through zip (runs after all cards/posters generated)
   }).then(function (){
     $('#zip-search').click(function () {
       var zipInput = $('#zip-input').val();
@@ -229,3 +231,7 @@ function getPoster(title, id){
   });
 })}
 
+//for popover in search
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover();
+});

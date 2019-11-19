@@ -41,6 +41,16 @@ body {
     height: 100% !important;
 
 }
+#zip-search {
+    color: white;
+}
+
+#zip-search:hover {
+    background-color: #9311A0;
+    color: white;
+}
+
+/*for the curtain*/
 .rnOuter {
     background: #E2A7E8;
     overflow: hidden;
