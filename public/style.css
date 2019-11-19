@@ -9,7 +9,7 @@ html, body {
     margin: 20px !important;
 }
 .navbar {
-    background-color: #aa66cc;
+    background-color: #463288;
 }
 
 body {
@@ -19,14 +19,18 @@ html, body {
     min-height: 100%;
 }
 body.loading {
-    background: #BBA2FF url('/icons/loader.gif') no-repeat 50% 50%;
+    background: #9FB7FF url('/icons/loader.gif') no-repeat 50% 50%;
     opacity: 0;
 }
 
 .addmovie {
-   background-color:  #9933CC;
+   background-color:  #746097;
+    border-color: #746097;
+}
+.addmovie:hover {
+    background-color: #463288 !important;
 }
 
 body {
-    background-color: #F4E8FF;
+    background-color: #DFE7FF;
 }

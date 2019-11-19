@@ -7,26 +7,32 @@ sayHello('World');
 /**
  * require style imports
  */
-const {getMovies, getMovie, postMovie, patchMovie, deleteMovie, getPoster} = require('./api.js');
+const {getMovies, getMovie, postMovie, patchMovie, deleteMovie} = require('./api.js');
 
+//for the loader on page load
+let $body = $('body');
+$(document).on({
+      ajaxStart: function () { $body.addClass('loading'); },
+      ajaxStop: function () { $body.removeClass('loading'); }
+    }
+);
 
-//for the loader
+//for the loader to stop
 let body = document.getElementsByTagName('body')[0];
 let removeLoading = function() {
   setTimeout(function() {
     body.className = body.className.replace(/loading/, '');
-  }, 1000);
+  }, 2000);
 };
+
 removeLoading();
 
 
-//Initial GetMovies Call
+//Initial GetMovies Call, needed to load the cards
 GetMovies();
 
-
+//GetMovies() builds the cards HTML
 function GetMovies(){
-  //for the loader
-
   getMovies().then((movies) => {
     console.log('Here are all the movies:');
     movies.forEach(({title, rating, id}) => {
@@ -35,7 +41,8 @@ function GetMovies(){
       for (let i = 0; i < movies.length; i++) {
         // let poster = $.get(`https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=${movie.title}&callback=?`);
         html += `<div class="card"  style="width: 15rem">
-          <img src="" class="card-img-top" alt="...">
+          <div id="card${[i]}"></div>
+<!--          <img src="" class="card-img-top" alt="...">-->
           
           <div class="card-body text-center">
           <h5 class="card-title">${movies[i].title}</h5>
@@ -51,6 +58,7 @@ function GetMovies(){
           </div>
           </div>`;
         $('.movies').html(html);
+        getPoster(movies[i].title, [i]);
       }
     });
   }).catch((error) => {
@@ -59,18 +67,15 @@ function GetMovies(){
   });
 }
 
-
+//For Modals
 let id;
-
 //jQuery to intercept Edit Button
 $('#movieUpdateModal').on('show.bs.modal', function (event) {
   let button = $(event.relatedTarget); // Button that triggered the modal
-
   let movieId = button.data('movieid');// Extract info from data-* attributes
-
   let modal = $(this);
 
-  //on top of the modal
+  //Set Title for modal
   modal.find('.modal-title').text(`Updating movie ${movieId}`);
 
   modal.find('#hidden').attr('value', `${movieId}`);
@@ -78,23 +83,21 @@ $('#movieUpdateModal').on('show.bs.modal', function (event) {
   id = document.getElementById('hidden').value;
   console.log(id + "for updating");
 
+  //Auto-populate title and rating fields with existing
   let selectedMovie = getMovie(movieId).then((movie) =>{
     console.log(movie.title);
     modal.find('#movieTitle').val(movie.title);
     $('#update-rating' + movie.rating).trigger('click');
     console.log(movie.rating + "this is the rating");
-
-
   });
 
+  //For the save button inside of the EDIT modal
   $('#saveButton').click(function () {
-
-    // id =  parseInt($('#editButton').attr('data-movieid'));
-    // console.log(id);
 
     //Get the title
     let title = $('#movieTitle').val();
 
+    //Get the rating
     let rating;
     let ele = document.getElementsByName('ratings');
     for(let i = 0; i < ele.length; i++) {
@@ -104,13 +107,8 @@ $('#movieUpdateModal').on('show.bs.modal', function (event) {
       }
     }
 
-
-    //Get the rating
-
-    // let newId= document.getElementsByName('ratings').val();
-
+    //Call UpdateMovie with the data entered by the user
     updateMovie(id,title,rating);
-
 
     //after updating close modal
     $('#movieUpdateModal').modal('toggle');
@@ -118,29 +116,29 @@ $('#movieUpdateModal').on('show.bs.modal', function (event) {
     //Call Get Movies to regenerate the cards
     GetMovies();
 
-
   });
 
 });
 
 
-$('#add-movie').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget); // Button that triggered the modal
-  var recipient = button.data('whatever'); // Extract info from data-* attributes
-
-  var modal = $(this);
-  // modal.find('.modal-title').text('New message to ' + recipient);
-  modal.find('.modal-body input').val(recipient)
-});
+// //Add a New Movie
+// $('#add-movie').on('show.bs.modal', function (event) {
+//   var button = $(event.relatedTarget); // Button that triggered the modal
+//   var recipient = button.data('whatever'); // Extract info from data-* attributes
+//
+//   var modal = $(this);
+//   // modal.find('.modal-title').text('New message to ' + recipient);
+//   modal.find('.modal-body input').val(recipient)
+// });
 
 //Get the ID
 // let id;
-
-
 //jQuery for the save button inside the modal to update json
 
 
 
+
+//Function to call PatchMovie, maybe we can just use patchMovie
 function updateMovie(id, title, rating) {
   let patchJson = {
     title,
@@ -151,9 +149,12 @@ function updateMovie(id, title, rating) {
   console.log(getMovies());
 }
 
+//Adding a new movie
 $('#add').click(function () {
   let id = $('#add-movie-button').attr('data-movieid');
   let title = $('#movie-title').val();
+
+  //We should maybe make this a function, we use the same code in Update
   let rating;
   let ele = document.getElementsByName('add-ratings');
   for(let i = 0; i < ele.length; i++) {
@@ -192,28 +193,38 @@ $('#movieDeleteModal').on('show.bs.modal', function (event) {
   $('#deleteButton').click(function () {
     deleteMovie(id);
     console.log(id + "for deleting");
+
+    //after deleting close modal
     $('#movieDeleteModal').modal('toggle');
+
+    //Call Get Movies to regenerate the cards
     GetMovies();
 
   });
 
-
-  //after updating close modal
-
-  //Call Get Movies to regenerate the cards
-
-
 });
 
-//for the loader
-let $body = $('body');
-$(document).on({
-  ajaxStart: function () { $body.addClass('loading'); },
-  ajaxStop: function () { $body.removeClass('loading'); }
 
+//Get Movie Poster Function...For some reason this looks like its getting called multiple times not sure why...Could be with GetMovies() loop
+//title: the title of the movie
+//id: the id of the card that the poster needs to be placed in
+function getPoster(title, id){
+  //Call themoviedb api and return the poster path
+  let posterPath = $.getJSON("https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=" + title + "&callback=?").then( function(json) {
+    if (json != "Nothing found.") {
+      console.log(`Title: ${title}`);
+      console.log(json);
+      return `http://image.tmdb.org/t/p/w500/${json.results[0].poster_path}`;
+    } else {
+      console.log("Nothing was found");
+      console.log(json);
+      //Return Default Poster Path
     }
+  }).then(function(poster){
+    console.log(`PosterPath: ${poster}`);
 
-);
+    //jQuery to update the card with the img html AFTER the response
+    $(`#card${id}`).html(`<img src="${poster}" class="card-img-top" alt="...">`);
+  });
 
-
-
+}
