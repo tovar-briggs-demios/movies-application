@@ -17,7 +17,7 @@ body {
     transition: background-color 1s;
 }
 html, body {
-    min-height: 100%;
+    min-height: 100%; ;
 }
 body.loading {
     background: #9FB7FF url('/icons/loader.gif') no-repeat 50% 50%;
@@ -34,4 +34,9 @@ body.loading {
 
 body {
     background-color: #DFE7FF;
+    background-image: url('icons/curtain2.png');
+    background-repeat: no-repeat;
+    width: 100% !important;
+    height: 100% !important;
+
 }
