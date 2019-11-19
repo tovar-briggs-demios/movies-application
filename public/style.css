@@ -12,6 +12,9 @@ html, body {
     background-color: #500651;
     font-size: large;
 }
+.navbar-brand{
+    margin-left: 37.5rem !important;
+}
 
 body {
     transition: background-color 1s;
