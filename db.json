@@ -27,7 +27,7 @@
     },
     {
       "title": "Tron",
-      "rating": "2",
+      "rating": "4",
       "id": 7
     },
     {
@@ -64,6 +64,11 @@
       "title": "Rugrats in Paris",
       "rating": "5",
       "id": 15
+    },
+    {
+      "title": "Joker",
+      "rating": "5",
+      "id": 16
     }
   ]
 }

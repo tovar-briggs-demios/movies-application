@@ -205,7 +205,7 @@ $('#movieDeleteModal').on('show.bs.modal', function (event) {
 //id: the id of the card that the poster needs to be placed in
 function getPoster(title, id){
   //Call themoviedb api and return the poster path
-  let posterPath = $.getJSON("https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=" + title + "&callback=?").then( function(json) {
+  let posterPath = $.getJSON(`https://api.themoviedb.org/3/search/movie?api_key=${poster}&query=${title}"&callback=?`).then( function(json) {
     if (json != "Nothing found.") {
       console.log(`Title: ${title}`);
       console.log(json);
@@ -221,5 +221,14 @@ function getPoster(title, id){
     //jQuery to update the card with the img html AFTER the response
     $(`#card${id}`).html(`<img src="${poster}" class="card-img-top" alt="...">`);
   });
+
+}
+
+function searchZip(){
+  let movieSearch = $.getJSON(`http://api.fandango.com/v1/?op=theatersbypostalcodesearch&postalcode=78023&apikey=${fandango}&sig=956acbca6978577c30ba9b1c143be06608c9b03021ef5656ec6634eecb433397`).then(function (json) {
+    if (json != "Nothing found."){
+
+    }
+  })
 
 }
