@@ -13,7 +13,14 @@ html, body {
     font-size: large;
 }
 .navbar-brand{
-    margin-left: 37.5rem !important;
+    margin-left: 36.5rem !important;
+}
+.popcorn{
+    background-image: url("icons/popcorn-raining.gif");
+    background-repeat: repeat;
+    background-color: #400634;
+    font-weight: bold;
+    color: white;
 }
 
 body {
@@ -28,21 +35,32 @@ body.loading {
 }
 
 .addmovie {
-   background-color:  #746097;
-    border-color: #746097;
+    background-color:  #4E0255;
+    border: none;
 }
 .addmovie:hover {
-    background-color: #463288 !important;
+    background-color:  #9311A0 !important;
+    color: white;
 }
 
 body {
-    background-color: #E2A7E8;
+    background-color: #DFE7FF;
     width: 100% !important;
     height: 100% !important;
 
 }
+#zip-search {
+    color: white;
+}
+
+#zip-search:hover {
+    background-color: #9311A0;
+    color: white;
+}
+
+/*for the curtain*/
 .rnOuter {
-    background: #E2A7E8;
+    background: #DFE7FF;
     overflow: hidden;
     position: relative;
     height: 100%;
@@ -111,7 +129,7 @@ body {
     text-align: center;
 }
 .aoTableCell {
-    color: #E2A7E8;
+    color: #DFE7FF;
     display: table-cell;
     vertical-align: middle;
     transition: color 3s ease;

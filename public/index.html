@@ -22,15 +22,24 @@
             <div class="aoTableCell">
 
 
-<nav class="navbar navbar-light text-white  d-flex justify-content-center">
+<nav class="navbar navbar-light text-white  justify-content-between">
+
+        <button type="button" class="btn btn-light addmovie d-flex text-white" id="add-movie-button" data-toggle="modal"
+                data-target="#movieAddModal"
+                data-whatever="@mdo">Add Movie</button>
+
     <a class="navbar-brand">
-        <img src="icons/popcorn.png" class="d-inline-block align-top" alt="">
+
+        <img src="icons/popcorn.png" class="align-top" alt="">
         Screens Come True
     </a>
     <form class="form-inline ml-auto">
-        <input class="form-control mr-sm-2" id="zip-input" type="search" placeholder="Enter Zip Code"
-               aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" id="zip-search" type="submit">Search</button>
+        <br>
+        <input class="form-control mr-sm-2" id="zip-input" type="search" data-toggle="popover" data-trigger="hover" data-content="Enter zipcode" placeholder="Look up show times"
+
+
+        aria-label="Search">
+        <button class="btn  my-2 my-sm-0" id="zip-search" type="submit">Search</button>
     </form>
 </nav>
 
@@ -199,11 +208,11 @@
     </div>
 </div>
 
-<div class = "modal-footer">
-    <button type="button" class="btn btn-info btn-lg btn-block addmovie text-white" id="add-movie-button" data-toggle="modal"
-            data-target="#movieAddModal"
-            data-whatever="@mdo">Add Movie</button>
-</div>
+<!--<div class = "modal-footer">-->
+<!--    <button type="button" class="btn btn-info btn-lg btn-block addmovie text-white" id="add-movie-button" data-toggle="modal"-->
+<!--            data-target="#movieAddModal"-->
+<!--            data-whatever="@mdo">Add Movie</button>-->
+<!--</div>-->
 
 
 

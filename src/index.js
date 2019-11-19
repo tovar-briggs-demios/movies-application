@@ -220,6 +220,8 @@ function getPoster(title, id){
 
     //jQuery to update the card with the img html AFTER the response
     $(`#card${id}`).html(`<img src="${poster}" class="card-img-top" alt="...">`);
+
+    //for find a movie through zip (runs after all cards/posters generated)
   }).then(function (){
     $('#zip-search').click(function () {
       var zipInput = $('#zip-input').val();
@@ -229,3 +231,35 @@ function getPoster(title, id){
   });
 })}
 
+//for popover in search
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover();
+});
+
+//===========popcorn raining=============//
+let allowedKeys = {
+  37: 'ArrowLeft',
+  38: 'ArrowUp',
+  39: 'ArrowRight',
+  40: 'ArrowDown',
+  65: 'a',
+  66: 'b',
+  13: 'Enter'
+};
+let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a', 'Enter'];
+let i = 0;
+$('*').keydown(function (e) {
+  let key = allowedKeys[e.keyCode];
+  let requiredKey = konamiCode[i];
+  if (key == requiredKey){
+    i++;
+    if (i == konamiCode.length){
+      console.log("successful");
+      rainingPopcorn();
+      i = 0;
+    }
+  }
+});
+function rainingPopcorn() {
+  $('.card-body').toggleClass('popcorn')
+}
