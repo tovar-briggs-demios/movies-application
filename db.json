@@ -1,8 +1,8 @@
 {
   "movies": [
     {
-      "title": "Harry Potter",
-      "rating": "2",
+      "title": "The Shawshank Redemption",
+      "rating": "4",
       "id": 1
     },
     {
@@ -16,18 +16,13 @@
       "id": 3
     },
     {
-      "title": "Rugrats: in Paris",
-      "rating": "2",
-      "id": 4
-    },
-    {
       "title": "Indiana Jones",
       "rating": "5",
       "id": 5
     },
     {
-      "title": "New Moon 2: The Quickening",
-      "rating": "1",
+      "title": "Toy Story",
+      "rating": "3",
       "id": 6
     },
     {
@@ -39,6 +34,36 @@
       "title": "The Lion King",
       "rating": "4",
       "id": 8
+    },
+    {
+      "title": "Happy feet",
+      "rating": "3",
+      "id": 9
+    },
+    {
+      "title": "John Wick",
+      "rating": "5",
+      "id": 10
+    },
+    {
+      "title": "Flubber",
+      "rating": "3",
+      "id": 11
+    },
+    {
+      "title": "Zombieland",
+      "rating": "2",
+      "id": 12
+    },
+    {
+      "title": "Pokemon",
+      "rating": "5",
+      "id": 13
+    },
+    {
+      "title": "The Mask",
+      "rating": "4",
+      "id": 14
     }
   ]
 }
